@@ -12,7 +12,7 @@ hdqr(
   nlambda = 100,
   lambda.factor = ifelse(nobs < nvars, 0.01, 1e-04),
   lambda = NULL,
-  lam2 = 0,
+  lam2 = 0.01,
   hval = 0.125,
   pf = rep(1, nvars),
   pf2 = rep(1, nvars),
@@ -128,12 +128,10 @@ at a grid of values of tuning parameter \code{lambda}.
 Note that the objective function in the penalized quantile
 regression is
   \deqn{1'\rho_{\tau}(y-X\beta-b_0))/N + \lambda_1\cdot|pf_1\circ\beta|_1 +
-    0.5*\lambda_2\cdot|\sqrt{pf_2}\circ\beta|^2,}{
-    1'\rho[\tau](y-X\beta))/N + \lambda[1]*|pf1•\beta|[1]
-    + 0.5*\lambda_{2}*|\sqrtpf2•\beta|^2,}
-  where \eqn{\rho_{\tau}}{\rho_{\tau}} the quantile or check loss
+    0.5*\lambda_2\cdot|\sqrt{pf_2}\circ\beta|^2,}
+  where \eqn{\rho_{\tau}} the quantile or check loss
   and the penalty is a combination of weighted L1 and L2 terms and
-  \eqn{\circ}{•} denotes the Hadmamard product.
+  \eqn{\circ} denotes the Hadmamard product.
 
 For faster computation, if the algorithm is not converging or
 running slow, consider increasing \code{eps}, increasing
@@ -141,16 +139,16 @@ running slow, consider increasing \code{eps}, increasing
 \code{lambda.factor} before increasing \code{maxit}.
 }
 \examples{
-set.seed(1)
+set.seed(315)
 n <- 100
 p <- 400
-x <- matrix(rnorm(n*p), n, p)
-y <- rnorm(n)
-tau <- 0.90
-pf <- abs(rnorm(p))
-pf2 <- abs(rnorm(p))
+x <- matrix(data = rnorm(n * p, mean = 0, sd = 1), nrow = n, ncol = p)
+beta_star <- c(c(2, 1.5, 0.8, 1, 1.75, 0.75, 0.3), rep(0, (p - 7)))
+eps <- rnorm(n, mean = 0, sd = 1)
+y <- x \%*\% beta_star + eps
+tau <- 0.5
 lam2 <- 0.01
-m1 <- hdqr(x = x, y = y, tau = tau, pf = pf, pf2 = pf2, lam2 = lam2)
+fit <- hdqr(x = x, y = y, tau = tau, lam2 = lam2)
 }
 \keyword{quantile}
 \keyword{regression}
