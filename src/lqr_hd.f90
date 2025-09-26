@@ -133,7 +133,7 @@
             b0(l) = b0(l) - Dot_product (beta(1:nk, l), &
            & xmean(ibeta(1:nk)))
          ENDDO
-
+         RETURN
       END SUBROUTINE lqr_hd
 
       SUBROUTINE lqr_path (alpha, lam2, hval, maj, mval, nobs, nvars, &
@@ -275,8 +275,7 @@
             IF (alpha /= -1.0) THEN
                lam2 = al * (1 - alpha) * 0.5D0 / alpha
             ENDIF
-            ! CALL INTPR("l", -1, l, 1)
-            ! CALL DBLEPR("ulaml", -1, ulam(l), 1)
+
             loop_hval: DO
                hval_id = hval_id + 1
                hinv = 1.0D0 / hval
@@ -691,7 +690,7 @@
             me = Count (beta(1:ni, l) /= 0.0D0)
             IF (me > dfmax) EXIT
          ENDDO loop_lambda
-
+         RETURN
       END SUBROUTINE lqr_path
       
       SUBROUTINE lqr_drv (nobs, nvars, x, tau, r, vl, onemh, oneph)

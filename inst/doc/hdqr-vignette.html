@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title><code>hdqr()</code></title>
+<title>Overview</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -204,6 +204,8 @@ hr {
 </head>
 
 <body>
+<h1>Overview</h1>
+
 <p>This package provides tools for fitting elastic net penalized quantile regression.</p>
 
 <p>The strengths and improvements that this package offers relative to other quantile regression packages are as follows:</p>
@@ -212,10 +214,12 @@ hr {
 <li><p>Compiled Fortran code significantly speeds up the elastic net penalized quantile regression estimation process.</p></li>
 <li><p>Solve the elastic net penalized quantile regression using generalized coordinate descent algorithm.</p></li>
 <li><p>Active-set and warm-start strategies implemented to compute the solution path as \lambda_1 varies.</p></li>
+<li><p>Flexible penalties. Elastic net by default; SCAD and MCP are also supported.</p></li>
 </ul>
 
-<p>For this getting-started vignette, first, we will randomly generate <code>x</code>, an input matrix of 
-predictors of dimension \(n\times p\) and a response variable &#39;y&#39;.</p>
+<h1>Quick Start</h1>
+
+<p>For this getting-started vignette, first, we will randomly generate <code>x</code>, an input matrix of  predictors of dimension \(n\times p\) and a response variable &#39;y&#39;.</p>
 
 <pre><code class="r">library(hdqr)
 set.seed(315)
